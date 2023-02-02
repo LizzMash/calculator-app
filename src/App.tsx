@@ -1,6 +1,6 @@
 import { Grid, Paper, styled } from '@mui/material';
 import { Container } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 
 const OutputContainer = styled('div')(({ theme }) => ({
   width: "100%",
@@ -10,23 +10,41 @@ const OutputContainer = styled('div')(({ theme }) => ({
   fontSize: "3em",
   overflow: "hidden"
 }))
-const CalculorBase = styled(Paper)(({ theme }) => ({
+const CalculatorBase = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   marginTop: theme.spacing(4),
   borderRadius: 15
 }))
 function App() {
+  const [currentValue, setCurrentValue] =useState("0");
+  const [operation, setOperation] = useState("");
+
+  const selectOperation=(operation: string)=> {
+      setOperation(operation);
+    };
+
+  const setDigit =(digit: string)=> {
+    setCurrentValue(digit);
+  };
+  
   return (
     <Container maxWidth="sm">
-      <CalculorBase elevation={3}>
+      <CalculatorBase elevation={3}>
         <Grid container spacing={1}>
           <Grid item xs={12}>
-            <OutputContainer>
-              0
-            </OutputContainer>
+            <OutputContainer>{currentValue}</OutputContainer>
           </Grid>
+          <Grid item container columnSpacing={1}>
+          <GridOperationButton>
+          operation={"AC"}
+          selectOperation={selectOperation}
+          selectedOperation={operation}
+          </GridOperationButton>
+          
+          
         </Grid>
-      </CalculorBase>
+        </Grid>
+      </CalculatorBase>
     </Container>
   );
 }
